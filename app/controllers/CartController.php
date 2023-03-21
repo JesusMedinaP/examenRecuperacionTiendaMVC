@@ -112,16 +112,17 @@ class CartController extends Controller
     {
         $errors = [];
 
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $name = $_POST['name'] ?? '';
-            $first_name = $_POST['first_name'] ?? '';
-            $last_name = $_POST['last_name']  ?? '';
+            $name = $_POST['first_name'] ?? '';
+            $first_name = $_POST['last_name_1'] ?? '';
+            $last_name = $_POST['last_name_2']  ?? '';
             $email = $_POST['email'] ?? '';
             $address = $_POST['address'] ?? '';
             $city = $_POST['city'] ?? '';
             $state = $_POST['state'] ?? '';
-            $zipcode = $_POST['zipcode'] ?? '';
+            $zipcode = $_POST['postcode'] ?? '';
             $country = $_POST['country'] ?? '';
 
             if ($name == '') {
