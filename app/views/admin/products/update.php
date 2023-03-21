@@ -147,7 +147,7 @@
                             <?= $status->description ?>
                         </option>
                     <?php endforeach ?>
-                    <option value="invalido">Estado inválido</option>
+
                 </select>
             </div>
             <div class="form-check text-left">

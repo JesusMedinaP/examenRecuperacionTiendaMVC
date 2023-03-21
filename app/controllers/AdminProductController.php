@@ -199,6 +199,7 @@ class AdminProductController extends Controller
         $catalogue = $this->model->getCatalogue();
         $originalImage = $this->model->getImage($id);
 
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $type = $_POST['type'] ?? '';
@@ -248,7 +249,7 @@ class AdminProductController extends Controller
             } elseif ( ! Validate::dateDif($published)) {
                 array_push($errors, 'La fecha de publicación no puede ser anterior a hoy');
             }
-            if(empty($status))
+            if($status=='')
             {
                 array_push($errors, 'Tienes que seleccionar un estado obligatoriamente');
             }
@@ -286,8 +287,8 @@ class AdminProductController extends Controller
 
                     $image = strtolower($image);
 
-                    if (is_uploaded_file($_FILES['image']['tmp_name']) && $originalImage!=$_FILES['image']['tmp_name']) {
-                        move_uploaded_file($_FILES['image']['tmp_name'], 'img/' . $image);
+                    if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+                        move_uploaded_file($_FILES['image']['tmp_name'], 'img/' . $originalImage->image);
                         Validate::resizeImage($image, 240);
                     } else {
                         array_push($errors, 'Error al subir el archivo de imagen');
@@ -296,6 +297,7 @@ class AdminProductController extends Controller
                     array_push($errors, 'El formato de imagen no es aceptado');
                 }
             }
+            var_dump($originalImage, $image);
 
             // Creamos el array de datos
             $dataForm = [
