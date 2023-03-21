@@ -40,6 +40,7 @@ class CartController extends Controller
         if ($this->model->verifyProduct($product_id, $user_id) == false) {
             if ($this->model->addProduct($product_id, $user_id) == false) {
                 array_push($errors, 'Error al insertar el producto en el carrito');
+                header('location:' . ROOT);
             }
         }
         $this->index($errors);
@@ -57,6 +58,7 @@ class CartController extends Controller
                 $quantity = $_POST['c'.$i];
                 if ( ! $this->model->update($user_id, $product_id, $quantity)) {
                     array_push($errors, 'Error al actualizar el producto');
+                    header('location:' . ROOT);
                 }
             }
             $this->index($errors);
@@ -101,15 +103,78 @@ class CartController extends Controller
         }
     }
 
+    public function check()
+    {
+
+    }
+
     public function paymentmode()
     {
-        $data = [
-            'titulo' => 'Carrito | Forma de pago',
-            'subtitle' => 'Checkout | Forma de pago',
-            'menu' => true,
-        ];
+        $errors = [];
 
-        $this->view('carts/paymentmode', $data);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $name = $_POST['name'] ?? '';
+            $first_name = $_POST['first_name'] ?? '';
+            $last_name = $_POST['last_name']  ?? '';
+            $email = $_POST['email'] ?? '';
+            $address = $_POST['address'] ?? '';
+            $city = $_POST['city'] ?? '';
+            $state = $_POST['state'] ?? '';
+            $zipcode = $_POST['zipcode'] ?? '';
+            $country = $_POST['country'] ?? '';
+
+            if ($name == '') {
+                array_push($errors, 'El nombre del usuario es requerido');
+            }
+            if ($first_name == '') {
+                array_push($errors, 'El primer apellido del usuario es requerido');
+            }
+            if ($last_name == '') {
+                array_push($errors, 'El segundo apellido del usuario es requerido');
+            }
+            if ($email == '') {
+                array_push($errors, 'El email es requerido');
+            }
+            if ($address == '') {
+                array_push($errors, 'La dirección del usuario es requerida');
+            }
+            if ($city == '') {
+                array_push($errors, 'La ciudad de envio es requerida');
+            }
+            if ($state == '') {
+                array_push($errors, 'El estado de envio es requerido');
+            }
+            if ($zipcode == '') {
+                array_push($errors, 'El código postal es requerido');
+            }
+            if ($country == '') {
+                array_push($errors, 'El país es de envio es requerido');
+            }
+
+            if ( ! $errors ) {
+                $data = [
+                    'titulo' => 'Carrito | Forma de pago',
+                    'subtitle' => 'Checkout | Forma de pago',
+                    'menu' => true,
+                ];
+                $this->view('carts/paymentmode', $data);
+            }else{
+                $data = [
+                    'titulo' => 'Error en los datos de envío',
+                    'menu' => false,
+                    'errors' => $errors,
+                    'subtitle' => 'Error al cotejar los datos de envío',
+                    'text' => 'Se ha producido un error durante el proceso de comprobación de los datos de envío',
+                    'color' => 'alert-danger',
+                    'url' => 'shop',
+                    'colorButton' => 'btn-danger',
+                    'textButton' => 'Volver',
+                ];
+                $this->view('mensaje', $data);
+            }
+        }
+
     }
 
     public function verify()

@@ -62,7 +62,8 @@ CREATE TABLE `carts` (
   `quantity` decimal(10,2) NOT NULL,
   `discount` decimal(10,2) NOT NULL,
   `send` decimal(10,2) NOT NULL,
-  `date` datetime NOT NULL
+  `date` datetime NOT NULL,
+  `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
