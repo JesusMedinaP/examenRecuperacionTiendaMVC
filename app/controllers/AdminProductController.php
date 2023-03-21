@@ -90,6 +90,14 @@ class AdminProductController extends Controller
             } elseif ( ! Validate::dateDif($published)) {
                 array_push($errors, 'La fecha de publicación no puede ser anterior a hoy');
             }
+            if(empty($status))
+            {
+                array_push($errors, 'Tienes que seleccionar un estado obligatoriamente');
+            }
+            if(($status < 0 && $status != null) || ($status > 1 && $status != null))
+            {
+                array_push($errors, 'Ese estado es inválido');
+            }
             if ($type == 1) {
                 if (empty($people)) {
                     array_push($errors, 'El público objetivo del curso es obligatorio');
@@ -238,6 +246,14 @@ class AdminProductController extends Controller
                 array_push($errors, 'La fecha o su formato no es correcto');
             } elseif ( ! Validate::dateDif($published)) {
                 array_push($errors, 'La fecha de publicación no puede ser anterior a hoy');
+            }
+            if(empty($status))
+            {
+                array_push($errors, 'Tienes que seleccionar un estado obligatoriamente');
+            }
+            if(($status < 0 && $status != null) || ($status > 1 && $status != null))
+            {
+                array_push($errors, 'Ese estado es inválido');
             }
             if ($type == 1) {
                 if (empty($people)) {
