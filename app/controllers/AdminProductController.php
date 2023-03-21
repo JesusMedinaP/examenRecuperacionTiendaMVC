@@ -288,6 +288,7 @@ class AdminProductController extends Controller
                     $image = strtolower($image);
 
                     if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+
                         move_uploaded_file($_FILES['image']['tmp_name'], 'img/' . $originalImage->image);
                         Validate::resizeImage($image, 240);
                     } else {
