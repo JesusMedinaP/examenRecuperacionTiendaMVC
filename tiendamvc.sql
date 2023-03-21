@@ -63,7 +63,8 @@ CREATE TABLE `carts` (
   `discount` decimal(10,2) NOT NULL,
   `send` decimal(10,2) NOT NULL,
   `date` datetime NOT NULL,
-  `price` decimal(10,2) NOT NULL
+  `price` decimal(10,2) NOT NULL,
+  `payment_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
@@ -170,6 +171,28 @@ INSERT INTO `users` (`id`, `first_name`, `last_name_1`, `last_name_2`, `email`, 
 (1, 'Pepe', 'Pérez', 'Sánchez', 'pepe@mail.es', 'c/ La suya 1', 'Murcia', 'Murcia', '30001', 'España', 'a69f16dbd2c154898e4bf453fd0694a11d429bc86972a26b521ffd9c2c84b9ca6253e0b10ae26c39d0d7b71f0eb973758f6b43eba1949fd9c4faaeeb18dd5b74'),
 (2, 'Juan', 'García', 'Martínez', 'juan@juan.es', 'c/ La otra', 'Valencia', 'Valencia', '46001', 'España', '806cc6e9290ccac7e77a34f545b28fdf3c8a87dab0f144f3885b2411483e433df0a34d9d11355f20b74df86b9bbbe5dd95d4046be9430851b8fbdbc390dc8e54');
 
+
+---
+--- TABLA PAYMENTS
+---
+CREATE TABLE `payments` (
+                          `id` int NOT NULL,
+                          `name` varchar(100) NOT NULL,
+                          `created_at` datetime NOT NULL,
+                          `updated_at` datetime DEFAULT NULL,
+                          `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+---
+---VOLCADO de datos para la tabla `payments`
+---
+INSERT INTO `payments` (`id`, `name`) VALUES
+(1, 'Tarjeta de crédito MasterCard'),
+(2, 'Tarjeta de crédito Visa'),
+(3, 'Tarjeta de débito'),
+(4, 'Efectivo'),
+(5, 'Paypal'),
+(6, 'Bitcoins');
+
 --
 -- Índices para tablas volcadas
 --
@@ -185,6 +208,7 @@ ALTER TABLE `admins`
 --
 ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`);
+  ADD FOREIGN KEY (`payment_id`);
 
 --
 -- Indices de la tabla `config`
@@ -203,6 +227,11 @@ ALTER TABLE `products`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
+
+--
+
+ALTER TABLE `payments`
+    ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -237,6 +266,12 @@ ALTER TABLE `products`
 --
 ALTER TABLE `users`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `payments`
+--
+ALTER TABLE `users`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
