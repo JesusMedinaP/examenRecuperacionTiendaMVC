@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 // Constantes iniciales
 define('ROOT', DIRECTORY_SEPARATOR);
 define('APP', ROOT . 'app' . DIRECTORY_SEPARATOR);
-define('URL', '/var/www/tiendamvc/');
+define('URL', '/var/www/proyecto11');
 define('VIEWS', URL . APP . 'views/');
 define('ENCRIPTKEY', 'elperrodesanroque');
 
